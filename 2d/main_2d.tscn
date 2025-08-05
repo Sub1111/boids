@@ -1,0 +1,74 @@
+[gd_scene load_steps=6 format=3 uid="uid://7q2oq1fhrgkl"]
+
+[ext_resource type="Script" path="res://2d/main_2d.gd" id="1_wobmm"]
+[ext_resource type="Script" path="res://2d/borders.gd" id="2_iw3ms"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tuxdb"]
+size = Vector2(2104, 82)
+
+[sub_resource type="BoxMesh" id="BoxMesh_a88t1"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2qbro"]
+size = Vector2(1380, 78)
+
+[node name="main2D" type="Node2D"]
+script = ExtResource("1_wobmm")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(964, 545)
+
+[node name="fish" type="Node2D" parent="."]
+
+[node name="borders" type="Node2D" parent="."]
+script = ExtResource("2_iw3ms")
+
+[node name="top" type="Area2D" parent="borders"]
+position = Vector2(953, -107)
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="borders/top"]
+shape = SubResource("RectangleShape2D_tuxdb")
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="borders/top"]
+scale = Vector2(2260, 80)
+mesh = SubResource("BoxMesh_a88t1")
+
+[node name="bottom" type="Area2D" parent="borders"]
+position = Vector2(953, 1191)
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="borders/bottom"]
+shape = SubResource("RectangleShape2D_tuxdb")
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="borders/bottom"]
+scale = Vector2(2260, 80)
+mesh = SubResource("BoxMesh_a88t1")
+
+[node name="left" type="Area2D" parent="borders"]
+position = Vector2(-136, 544)
+rotation = 1.5708
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="borders/left"]
+shape = SubResource("RectangleShape2D_2qbro")
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="borders/left"]
+scale = Vector2(1375, 80)
+mesh = SubResource("BoxMesh_a88t1")
+
+[node name="right" type="Area2D" parent="borders"]
+position = Vector2(2044, 544)
+rotation = 1.5708
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="borders/right"]
+shape = SubResource("RectangleShape2D_2qbro")
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="borders/right"]
+scale = Vector2(1375, 80)
+mesh = SubResource("BoxMesh_a88t1")
+
+[connection signal="area_entered" from="borders/top" to="borders" method="_on_top_area_entered"]
+[connection signal="area_entered" from="borders/bottom" to="borders" method="_on_bottom_area_entered"]
+[connection signal="area_entered" from="borders/left" to="borders" method="_on_left_area_entered"]
+[connection signal="area_entered" from="borders/right" to="borders" method="_on_right_area_entered"]
