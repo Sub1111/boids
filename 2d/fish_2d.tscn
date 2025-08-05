@@ -4,8 +4,8 @@
 
 [sub_resource type="PrismMesh" id="PrismMesh_ffmq2"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_0farp"]
-size = Vector2(38.4003, 38.4)
+[sub_resource type="CircleShape2D" id="CircleShape2D_namc2"]
+radius = 33.6381
 
 [node name="fish2D" type="Node2D"]
 rotation = -6.28319
@@ -33,5 +33,5 @@ rotation = -1.5708
 monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Detector"]
-position = Vector2(-4.19629e-06, 19.2)
-shape = SubResource("RectangleShape2D_0farp")
+position = Vector2(2.27374e-12, 1.90735e-06)
+shape = SubResource("CircleShape2D_namc2")
