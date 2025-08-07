@@ -4,13 +4,14 @@ var detector: Area2D
 var flock_mates: Array[Node2D]
 
 var avoidance_strength = 1.0
-var alignment_strength = .5
+var alignment_strength = 0.1
 
 const max_speed := 10.0
 const min_speed := 0.0
-const max_steer_force := max_speed
-const forward_acceleration: float = max_speed / 1.5
+const max_steer_force := max_speed / 2.
+const forward_acceleration: float = max_speed / 2.
 const avoidance_radius := 1.
+const vision_cone_threshhold := -0.7
 
 var velocity: Vector2
 var acceleration: Vector2
@@ -26,7 +27,9 @@ func _process(delta: float) -> void:
 	acceleration = Vector2.ZERO
 	flock_mates = []
 	for fish_area in detector.get_overlapping_areas():
-		flock_mates.append(fish_area.get_parent())
+		var fish = fish_area.get_parent()
+		if in_vision_cone(fish.position):
+			flock_mates.append(fish)
 	
 	if flock_mates.size() > 0:
 		acceleration += calculate_avoidance_force()
@@ -45,10 +48,15 @@ func _process(delta: float) -> void:
 	move(velocity, delta)
 
 
-func move(velocity: Vector2, delta: float):
+
+func in_vision_cone(fish_pos: Vector2) -> bool:
+	return (velocity.normalized().dot((fish_pos - position).normalized()) > vision_cone_threshhold)
+
+func move(velocity: Vector2, delta: float) -> void:
 	position += velocity * delta * scale
 
-func calculate_avoidance_force():
+# Avoidance
+func calculate_avoidance_force() -> Vector2:
 	var avg_dir: Vector2 = Vector2(0., 0.)
 	var dir: Vector2
 	
@@ -62,7 +70,9 @@ func calculate_avoidance_force():
 	
 	return avg_dir * avoidance_strength
 
-func calculate_alignment_force():
+# Alignment
+# TODO: add dependency between distantion and impact of each fish
+func calculate_alignment_force() -> Vector2:
 	var sum_of_angles: float = 0.
 	
 	for fish in flock_mates:
