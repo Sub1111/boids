@@ -5,16 +5,15 @@
 [sub_resource type="PrismMesh" id="PrismMesh_ffmq2"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_namc2"]
-radius = 33.6381
 
 [node name="fish2D" type="Node2D"]
 rotation = -6.28319
-scale = Vector2(5, 5)
+scale = Vector2(20, 20)
 script = ExtResource("1_emust")
 
 [node name="Area2D" type="Area2D" parent="."]
+position = Vector2(1.19209e-07, -9.09495e-13)
 rotation = -1.5708
-scale = Vector2(4, 4)
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]
 position = Vector2(-0.00568295, -0.00320319)
@@ -24,7 +23,6 @@ polygon = PackedVector2Array(1.26238, -0.637489, -0.949935, -0.312446, 0.637489,
 
 [node name="MeshInstance2D" type="MeshInstance2D" parent="."]
 rotation = -1.5708
-scale = Vector2(4, 4)
 mesh = SubResource("PrismMesh_ffmq2")
 
 [node name="Detector" type="Area2D" parent="."]
@@ -32,5 +30,5 @@ rotation = -1.5708
 monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Detector"]
-position = Vector2(2.27374e-12, 1.90735e-06)
+position = Vector2(1.51788e-18, 0)
 shape = SubResource("CircleShape2D_namc2")
