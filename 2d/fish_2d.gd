@@ -4,7 +4,7 @@ var detector: Area2D
 var flock_mates: Array[Node2D]
 
 var avoidance_strength = 1.0
-var alignment_strength = 0.1
+var alignment_strength = 1.0
 
 const max_speed := 10.0
 const min_speed := 0.0
@@ -73,10 +73,11 @@ func calculate_avoidance_force() -> Vector2:
 # Alignment
 # TODO: add dependency between distantion and impact of each fish
 func calculate_alignment_force() -> Vector2:
-	var sum_of_angles: float = 0.
+	var avg_dir: Vector2 = Vector2.ZERO
 	
 	for fish in flock_mates:
-		sum_of_angles += fish.rotation
-	var avg_dir := Vector2(cos(sum_of_angles / flock_mates.size()), sin(sum_of_angles / flock_mates.size()))
+		avg_dir += fish.velocity.normalized() * (1 / ((position - fish.position).length() + 1.))
+	avg_dir *= max_steer_force
+	avg_dir = avg_dir.normalized() * clamp(avg_dir.length(), 0., max_steer_force)
 	
-	return avg_dir * max_steer_force * alignment_strength
+	return avg_dir * alignment_strength
