@@ -20,7 +20,7 @@ var acceleration: Vector2
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	detector = get_child(2)
-	velocity = max_speed * Vector2(cos(rotation), sin(rotation))
+	velocity = (max_speed + min_speed) / 2. * Vector2(cos(rotation), sin(rotation))
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -40,7 +40,7 @@ func _process(delta: float) -> void:
 	velocity += acceleration
 	var speed: float = velocity.length()
 	var dir: Vector2 = velocity / speed
-	if speed < max_speed:
+	if speed < (max_speed + min_speed) / 2.:
 		speed += forward_acceleration * delta
 	speed = clamp(speed, min_speed, max_speed)
 	velocity = dir * speed
