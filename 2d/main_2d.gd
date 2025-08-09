@@ -1,6 +1,6 @@
 extends Node2D
 
-@export var fish_amount := 40
+@export var fish_amount := 160
 var fish_instance = preload("res://2d/fish_2d.tscn")
 
 func _ready() -> void:
