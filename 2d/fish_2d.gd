@@ -7,12 +7,19 @@ var avoidance_strength = 1.0
 var alignment_strength = 1.0
 var cohesion_strength = 1.0
 
-const max_speed := 15.0
-const min_speed := 2.0
+const max_speed := 20.0
+const min_speed := 3.0
 const max_steer_force := max_speed / 3.
 const forward_acceleration: float = max_speed / 2.
+
 const avoidance_radius := 2.
 const vision_cone_threshhold := -0.7
+const vision_distance = 10.
+
+const ray_direction_amount = 50
+var ray_directions: Array[Vector2]
+var ray: RayCast2D
+var colision_avoid_strength = 10.
 
 var velocity: Vector2
 var acceleration: Vector2
@@ -21,6 +28,10 @@ var acceleration: Vector2
 func _ready() -> void:
 	detector = get_child(2)
 	velocity = (max_speed + min_speed) / 2. * Vector2(cos(rotation), sin(rotation))
+	
+	ray = get_child(3)
+	ray_directions.resize(ray_direction_amount)
+	calculate_ray_directions()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -29,13 +40,16 @@ func _process(delta: float) -> void:
 	flockmates = []
 	for fish_area in detector.get_overlapping_areas():
 		var fish = fish_area.get_parent()
-		if in_vision_cone(fish.position):
+		if in_vision_cone(fish.position) and fish.get_parent().name == "fish":
 			flockmates.append(fish)
 	
 	if flockmates.size() > 0:
 		acceleration += calculate_avoidance_force()
 		acceleration += calculate_alignment_force()
 		acceleration += calculate_cohesion_force()
+	
+	if is_heading_for_colision():
+		acceleration += calculate_colision_avoid_force()
 	
 	velocity += acceleration
 	var speed: float = velocity.length()
@@ -44,7 +58,6 @@ func _process(delta: float) -> void:
 		speed += forward_acceleration * delta
 	speed = clamp(speed, min_speed, max_speed)
 	velocity = dir * speed
-	
 	
 	rotation = atan2(velocity.y, velocity.x)
 	move(velocity, delta)
@@ -58,7 +71,44 @@ func move(velocity: Vector2, delta: float) -> void:
 	position += velocity * delta * scale
 
 #================================================================================
-# Forces
+# Colision avoidance
+#================================================================================
+
+func calculate_ray_directions() -> void:
+	var angle: float
+	var t: float
+	
+	for i in range(ray_direction_amount):
+		t = i / float(ray_direction_amount)
+		angle = acos(1 - 2 * t)
+		angle = -angle if i % 2 == 1 else angle
+		ray_directions[i] = Vector2(cos(angle), sin(angle))
+
+func is_heading_for_colision() -> bool:
+	var colider: Area2D = ray.get_collider()
+	
+	if colider == null:
+		return false
+	if colider.get_parent().get_parent().name != "fish":
+		return true
+	return false
+
+func get_colision_avoid_dir() -> Vector2:
+	var fish_direction = velocity.normalized()
+	for dir in ray_directions:
+		print(dir * vision_distance)
+		ray.target_position = dir * vision_distance
+		if !ray.collide_with_areas:
+			ray.target_position = Vector2(1 * vision_distance, 0)
+			# Converting local directon to global direction
+			return Vector2(dir.x * fish_direction.x - dir.y * fish_direction.y, dir.x * fish_direction.y + dir.y * fish_direction.x)
+	return fish_direction
+
+func calculate_colision_avoid_force() -> Vector2:
+	return get_colision_avoid_dir() * max_steer_force * colision_avoid_strength
+
+#================================================================================
+# Flock forces
 #================================================================================
 
 # Avoidance
@@ -100,4 +150,3 @@ func calculate_cohesion_force() -> Vector2:
 	offset = offset.normalized() * clamp(offset.length(), 0., max_steer_force)
 	
 	return offset * cohesion_strength
-	

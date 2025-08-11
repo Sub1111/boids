@@ -32,3 +32,8 @@ monitorable = false
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Detector"]
 position = Vector2(1.51788e-18, 0)
 shape = SubResource("CircleShape2D_namc2")
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+target_position = Vector2(10, 4.46638e-05)
+collide_with_areas = true
+collide_with_bodies = false

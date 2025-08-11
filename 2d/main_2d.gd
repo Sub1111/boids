@@ -1,9 +1,11 @@
 extends Node2D
 
-@export var fish_amount := 160
+@export var fish_amount := 1
 var fish_instance = preload("res://2d/fish_2d.tscn")
+var fish_main_node: Node2D
 
 func _ready() -> void:
+	fish_main_node = get_child(1)
 	for i in range(fish_amount):
 		var pos: Vector2 = Vector2(randi_range(10, 1200), randi_range(10, 1200))
 		var rot: float = randf_range(0, 360)
@@ -13,4 +15,4 @@ func inst(pos: Vector2, rot: float):
 	var fish: Node2D = fish_instance.instantiate()
 	fish.position = pos
 	fish.rotation = rot
-	add_child(fish)
+	fish_main_node.add_child(fish)
