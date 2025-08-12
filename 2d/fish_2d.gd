@@ -7,7 +7,7 @@ var avoidance_strength = 1.0
 var alignment_strength = 1.0
 var cohesion_strength = 1.0
 
-const max_speed := 20.0
+const max_speed := 5.0
 const min_speed := 3.0
 const max_steer_force := max_speed / 3.
 const forward_acceleration: float = max_speed / 2.
@@ -16,7 +16,7 @@ const avoidance_radius := 2.
 const vision_cone_threshhold := -0.7
 const vision_distance = 10.
 
-const ray_direction_amount = 50
+const ray_direction_amount = 300
 var ray_directions: Array[Vector2]
 var ray: RayCast2D
 var colision_avoid_strength = 10.
@@ -30,6 +30,7 @@ func _ready() -> void:
 	velocity = (max_speed + min_speed) / 2. * Vector2(cos(rotation), sin(rotation))
 	
 	ray = get_child(3)
+	ray.add_exception(get_child(0))
 	ray_directions.resize(ray_direction_amount)
 	calculate_ray_directions()
 
@@ -49,6 +50,7 @@ func _process(delta: float) -> void:
 		acceleration += calculate_cohesion_force()
 	
 	if is_heading_for_colision():
+		acceleration = Vector2.ZERO
 		acceleration += calculate_colision_avoid_force()
 	
 	velocity += acceleration
@@ -95,17 +97,22 @@ func is_heading_for_colision() -> bool:
 
 func get_colision_avoid_dir() -> Vector2:
 	var fish_direction = velocity.normalized()
+	var colider: Area2D
 	for dir in ray_directions:
-		print(dir * vision_distance)
 		ray.target_position = dir * vision_distance
-		if !ray.collide_with_areas:
+		ray.force_raycast_update()
+		colider = ray.get_collider()
+		if colider == null:
 			ray.target_position = Vector2(1 * vision_distance, 0)
+			ray.force_raycast_update()
 			# Converting local directon to global direction
 			return Vector2(dir.x * fish_direction.x - dir.y * fish_direction.y, dir.x * fish_direction.y + dir.y * fish_direction.x)
 	return fish_direction
 
 func calculate_colision_avoid_force() -> Vector2:
-	return get_colision_avoid_dir() * max_steer_force * colision_avoid_strength
+	var dist: float = (position - ray.get_collision_point()).length()
+	var dist_strength = 1 / (dist + 1)
+	return get_colision_avoid_dir() * max_steer_force * colision_avoid_strength * dist_strength
 
 #================================================================================
 # Flock forces

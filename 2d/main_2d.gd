@@ -1,6 +1,6 @@
 extends Node2D
 
-@export var fish_amount := 1
+@export var fish_amount := 40
 var fish_instance = preload("res://2d/fish_2d.tscn")
 var fish_main_node: Node2D
 
