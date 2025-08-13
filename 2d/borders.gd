@@ -10,24 +10,21 @@ func _process(delta: float) -> void:
 
 
 func _on_top_area_entered(area: Area2D) -> void:
-	return
 	var fish: Node2D = area.get_parent()
-	fish.position.y += 1250
+	fish.position.y += 20
 
 
 func _on_bottom_area_entered(area: Area2D) -> void:
-	return
 	var fish: Node2D = area.get_parent()
-	fish.position.y -= 1250
+	fish.position.y -= 20
 
 
 func _on_left_area_entered(area: Area2D) -> void:
-	return
 	var fish: Node2D = area.get_parent()
-	fish.position.x += 2050
+	fish.position.x += 20
 
 
 func _on_right_area_entered(area: Area2D) -> void:
 	return
 	var fish: Node2D = area.get_parent()
-	fish.position.x -= 2050
+	fish.position.x -= 20

@@ -7,7 +7,7 @@ var avoidance_strength = 1.0
 var alignment_strength = 1.0
 var cohesion_strength = 1.0
 
-const max_speed := 5.0
+const max_speed := 20.0
 const min_speed := 3.0
 const max_steer_force := max_speed / 3.
 const forward_acceleration: float = max_speed / 2.
@@ -50,7 +50,6 @@ func _process(delta: float) -> void:
 		acceleration += calculate_cohesion_force()
 	
 	if is_heading_for_colision():
-		acceleration = Vector2.ZERO
 		acceleration += calculate_colision_avoid_force()
 	
 	velocity += acceleration
@@ -112,7 +111,7 @@ func get_colision_avoid_dir() -> Vector2:
 func calculate_colision_avoid_force() -> Vector2:
 	var dist: float = (position - ray.get_collision_point()).length()
 	var dist_strength = 1 / (dist + 1)
-	return get_colision_avoid_dir() * max_steer_force * colision_avoid_strength * dist_strength
+	return ray.get_collision_normal() * max_steer_force * colision_avoid_strength * dist_strength
 
 #================================================================================
 # Flock forces
