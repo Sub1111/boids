@@ -7,7 +7,7 @@ var fish_main_node: Node2D
 func _ready() -> void:
 	fish_main_node = get_child(2)
 	for i in range(fish_amount):
-		var pos: Vector2 = Vector2(randi_range(10, 1200), randi_range(10, 1200))
+		var pos: Vector2 = Vector2(randi_range(500, 1200), randi_range(500, 510))
 		var rot: float = randf_range(0, 360)
 		inst(pos, rot)
 

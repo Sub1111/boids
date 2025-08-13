@@ -32,7 +32,6 @@ script = ExtResource("2_iw3ms")
 
 [node name="top" type="Area2D" parent="borders"]
 position = Vector2(953, -107)
-monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="borders/top"]
 shape = SubResource("RectangleShape2D_tuxdb")
@@ -65,7 +64,6 @@ mesh = SubResource("BoxMesh_a88t1")
 [node name="right" type="Area2D" parent="borders"]
 position = Vector2(2044, 544)
 rotation = 1.5708
-monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="borders/right"]
 shape = SubResource("RectangleShape2D_2qbro")

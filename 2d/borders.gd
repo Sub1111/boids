@@ -25,6 +25,5 @@ func _on_left_area_entered(area: Area2D) -> void:
 
 
 func _on_right_area_entered(area: Area2D) -> void:
-	return
 	var fish: Node2D = area.get_parent()
 	fish.position.x -= 20

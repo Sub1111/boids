@@ -19,7 +19,7 @@ const vision_distance = 10.
 const ray_direction_amount = 300
 var ray_directions: Array[Vector2]
 var ray: RayCast2D
-var colision_avoid_strength = 10.
+var colision_avoid_strength = 50.
 
 var velocity: Vector2
 var acceleration: Vector2
