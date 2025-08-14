@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://7q2oq1fhrgkl"]
+[gd_scene load_steps=9 format=3 uid="uid://7q2oq1fhrgkl"]
 
 [ext_resource type="Script" path="res://2d/main_2d.gd" id="1_wobmm"]
 [ext_resource type="Script" path="res://2d/borders.gd" id="2_iw3ms"]
@@ -13,6 +13,12 @@ size = Vector2(2104, 82)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2qbro"]
 size = Vector2(1380, 78)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rcij5"]
+size = Vector2(2254, 228)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jolmf"]
+size = Vector2(649.124, 256)
+
 [node name="main2D" type="Node2D"]
 script = ExtResource("1_wobmm")
 
@@ -23,7 +29,7 @@ scale = Vector2(3843, 2524)
 mesh = SubResource("QuadMesh_yfgox")
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(964, 545)
+position = Vector2(964, 535)
 
 [node name="fish" type="Node2D" parent="."]
 
@@ -51,14 +57,15 @@ scale = Vector2(2260, 80)
 mesh = SubResource("BoxMesh_a88t1")
 
 [node name="left" type="Area2D" parent="borders"]
-position = Vector2(-136, 544)
+position = Vector2(-137, 544)
 rotation = 1.5708
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="borders/left"]
 shape = SubResource("RectangleShape2D_2qbro")
 
 [node name="MeshInstance2D" type="MeshInstance2D" parent="borders/left"]
-scale = Vector2(1375, 80)
+position = Vector2(-0.53034, 0)
+scale = Vector2(1373.94, 80)
 mesh = SubResource("BoxMesh_a88t1")
 
 [node name="right" type="Area2D" parent="borders"]
@@ -69,8 +76,91 @@ rotation = 1.5708
 shape = SubResource("RectangleShape2D_2qbro")
 
 [node name="MeshInstance2D" type="MeshInstance2D" parent="borders/right"]
+position = Vector2(-0.999996, 1)
 scale = Vector2(1375, 80)
 mesh = SubResource("BoxMesh_a88t1")
+
+[node name="Area2D" type="Area2D" parent="borders"]
+visible = false
+position = Vector2(962, 1051)
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="borders/Area2D"]
+position = Vector2(-11, 147)
+shape = SubResource("RectangleShape2D_rcij5")
+
+[node name="Area2D2" type="Area2D" parent="borders"]
+visible = false
+position = Vector2(962, -257)
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="borders/Area2D2"]
+position = Vector2(-11, 147)
+shape = SubResource("RectangleShape2D_rcij5")
+
+[node name="Area2D3" type="Area2D" parent="borders"]
+visible = false
+position = Vector2(6, 641)
+rotation = 1.57079
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="borders/Area2D3"]
+position = Vector2(-11, 147)
+shape = SubResource("RectangleShape2D_rcij5")
+
+[node name="Area2D4" type="Area2D" parent="borders"]
+visible = false
+position = Vector2(1899, 641)
+rotation = -1.57079
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="borders/Area2D4"]
+position = Vector2(-11, 147)
+shape = SubResource("RectangleShape2D_rcij5")
+
+[node name="Area2D5" type="Area2D" parent="borders"]
+visible = false
+position = Vector2(-34, -13)
+rotation = -0.785397
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="borders/Area2D5"]
+shape = SubResource("RectangleShape2D_jolmf")
+
+[node name="Area2D6" type="Area2D" parent="borders"]
+visible = false
+position = Vector2(1942, -30)
+rotation = 0.785397
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="borders/Area2D6"]
+shape = SubResource("RectangleShape2D_jolmf")
+
+[node name="Area2D7" type="Area2D" parent="borders"]
+visible = false
+position = Vector2(-45, 1096)
+rotation = -2.35619
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="borders/Area2D7"]
+shape = SubResource("RectangleShape2D_jolmf")
+
+[node name="Area2D8" type="Area2D" parent="borders"]
+visible = false
+position = Vector2(1948, 1105)
+rotation = -0.785397
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="borders/Area2D8"]
+shape = SubResource("RectangleShape2D_jolmf")
 
 [connection signal="area_entered" from="borders/top" to="borders" method="_on_top_area_entered"]
 [connection signal="area_entered" from="borders/bottom" to="borders" method="_on_bottom_area_entered"]

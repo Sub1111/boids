@@ -14,7 +14,7 @@ const forward_acceleration: float = max_speed / 2.
 
 const avoidance_radius := 2.
 const vision_cone_threshhold := -0.7
-const vision_distance = 10.
+const vision_distance = 20.
 
 const ray_direction_amount = 300
 var ray_directions: Array[Vector2]
@@ -49,7 +49,7 @@ func _process(delta: float) -> void:
 		acceleration += calculate_alignment_force()
 		acceleration += calculate_cohesion_force()
 	
-	if is_heading_for_colision():
+	if is_heading_for_colision() and GlobalVars2d.is_colision_avoidance_enabled:
 		acceleration += calculate_colision_avoid_force()
 	
 	velocity += acceleration
