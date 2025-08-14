@@ -4,7 +4,7 @@ var detector: Area2D
 var flockmates: Array[Node2D]
 
 var avoidance_strength = 1.0
-var alignment_strength = 1.0
+var alignment_strength = .5
 var cohesion_strength = 1.0
 
 const max_speed := 20.0
