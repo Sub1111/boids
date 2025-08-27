@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://7q2oq1fhrgkl"]
+[gd_scene load_steps=8 format=3 uid="uid://7q2oq1fhrgkl"]
 
 [ext_resource type="Script" path="res://2d/main_2d.gd" id="1_wobmm"]
 [ext_resource type="Script" path="res://2d/borders.gd" id="2_iw3ms"]
@@ -16,9 +16,6 @@ size = Vector2(80, 944)
 
 [sub_resource type="BoxMesh" id="BoxMesh_wqhqh"]
 size = Vector3(10, 100, 1)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_tv7wu"]
-size = Vector2(636.396, 342.24)
 
 [node name="main2D" type="Node2D"]
 script = ExtResource("1_wobmm")
@@ -78,40 +75,6 @@ shape = SubResource("RectangleShape2D_16spo")
 [node name="MeshInstance2D" type="MeshInstance2D" parent="borders/centre"]
 scale = Vector2(7.90469, 9.45102)
 mesh = SubResource("BoxMesh_wqhqh")
-
-[node name="corner1" type="Area2D" parent="borders"]
-position = Vector2(-384, -258)
-collision_layer = 3
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="borders/corner1"]
-rotation = -0.785397
-shape = SubResource("RectangleShape2D_tv7wu")
-
-[node name="corner2" type="Area2D" parent="borders"]
-position = Vector2(2306, -250)
-rotation = 1.57079
-collision_layer = 3
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="borders/corner2"]
-rotation = -0.785397
-shape = SubResource("RectangleShape2D_tv7wu")
-
-[node name="corner3" type="Area2D" parent="borders"]
-position = Vector2(2300, 1324)
-collision_layer = 3
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="borders/corner3"]
-rotation = -0.785397
-shape = SubResource("RectangleShape2D_tv7wu")
-
-[node name="corner4" type="Area2D" parent="borders"]
-position = Vector2(-382, 1318)
-rotation = -1.57079
-collision_layer = 3
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="borders/corner4"]
-rotation = -0.785397
-shape = SubResource("RectangleShape2D_tv7wu")
 
 [connection signal="area_entered" from="borders/top" to="borders" method="_on_top_area_entered"]
 [connection signal="area_entered" from="borders/bottom" to="borders" method="_on_bottom_area_entered"]

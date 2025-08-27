@@ -16,7 +16,7 @@ const avoidance_radius := 5.
 const vision_cone_threshhold := -0.7
 const vision_distance = 20.
 
-const ray_direction_amount = 50
+const ray_direction_amount = 20
 var ray_directions: Array[Vector2]
 var ray: RayCast2D
 var colision_avoid_strength = 20.
@@ -111,7 +111,7 @@ func get_colision_avoid_dir() -> Vector2:
 func calculate_colision_avoid_force() -> Vector2:
 	var dist: float = (position - ray.get_collision_point()).length()
 	var dist_strength = 1 / (dist + 1)
-	return ray.get_collision_normal() * max_steer_force * colision_avoid_strength * dist_strength
+	return get_colision_avoid_dir() * max_steer_force * colision_avoid_strength * dist_strength
 
 #================================================================================
 # Flock forces
