@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://dt7qibdgo24c2"]
+[gd_scene load_steps=5 format=3 uid="uid://dt7qibdgo24c2"]
 
 [ext_resource type="Script" path="res://2d/fish_2d.gd" id="1_emust"]
+[ext_resource type="Script" path="res://2d/color_changing.gd" id="2_83lc4"]
 
 [sub_resource type="PrismMesh" id="PrismMesh_ffmq2"]
 
@@ -8,7 +9,7 @@
 
 [node name="fish2D" type="Node2D"]
 rotation = -6.28319
-scale = Vector2(20, 20)
+scale = Vector2(30, 30)
 script = ExtResource("1_emust")
 
 [node name="Area2D" type="Area2D" parent="."]
@@ -24,6 +25,7 @@ polygon = PackedVector2Array(1.26238, -0.637489, -0.949935, -0.312446, 0.637489,
 [node name="MeshInstance2D" type="MeshInstance2D" parent="."]
 rotation = -1.5708
 mesh = SubResource("PrismMesh_ffmq2")
+script = ExtResource("2_83lc4")
 
 [node name="Detector" type="Area2D" parent="."]
 rotation = -1.5708

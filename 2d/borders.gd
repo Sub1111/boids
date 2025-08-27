@@ -12,30 +12,34 @@ func _process(delta: float) -> void:
 func _on_top_area_entered(area: Area2D) -> void:
 	var fish: Node2D = area.get_parent()
 	if GlobalVars2d.is_colision_avoidance_enabled:
+		return
 		fish.position.y += 20
 	else:
-		fish.position.y = 1110
+		fish.position.y += 1440
 
 
 func _on_bottom_area_entered(area: Area2D) -> void:
 	var fish: Node2D = area.get_parent()
 	if GlobalVars2d.is_colision_avoidance_enabled:
+		return
 		fish.position.y -= 20
 	else:
-		fish.position.y = -65
+		fish.position.y -= 1440
 
 
 func _on_left_area_entered(area: Area2D) -> void:
 	var fish: Node2D = area.get_parent()
 	if GlobalVars2d.is_colision_avoidance_enabled:
+		return
 		fish.position.x += 20
 	else:
-		fish.position.x = 2000
+		fish.position.x += 2560
 
 
 func _on_right_area_entered(area: Area2D) -> void:
 	var fish: Node2D = area.get_parent()
 	if GlobalVars2d.is_colision_avoidance_enabled:
+		return
 		fish.position.x -= 20
 	else:
-		fish.position.x = -50
+		fish.position.x -= 2560
