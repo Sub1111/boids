@@ -18,7 +18,7 @@ func _process(delta: float) -> void:
 	g = modulate.g
 	b = modulate.b
 	
-	if flockmates.size() > 0:
+	if flockmates.size() > 0 and GlobalVars2d.is_color_dependency_enabled:
 		r = 0
 		g = 0
 		b = 0
@@ -30,4 +30,8 @@ func _process(delta: float) -> void:
 		r /= flockmates.size()
 		g /= flockmates.size()
 		b /= flockmates.size()
-	modulate = Color(r + randf_range(-0.01,0.01), g + randf_range(-0.1,0.1), b + randf_range(-0.1,0.1), 1.)
+	
+	if GlobalVars2d.is_color_changing_enabled:
+		modulate = Color(r + randf_range(-0.01,0.01), g + randf_range(-0.1,0.1), b + randf_range(-0.1,0.1), 1.)
+	else:
+		modulate = Color(r, g, b, 1.)

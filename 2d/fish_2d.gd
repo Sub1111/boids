@@ -4,22 +4,22 @@ var detector: Area2D
 var flockmates: Array[Node2D]
 
 var avoidance_strength = 1.0
-var alignment_strength = 1.0
-var cohesion_strength = 1.0
+var alignment_strength = 0.5
+var cohesion_strength = 2.
 
 const max_speed := 10.0
 const min_speed := 3.0
 const max_steer_force := max_speed / 3.
 const forward_acceleration: float = max_speed / 2.
 
-const avoidance_radius := 5.
+const avoidance_radius := 3.
 const vision_cone_threshhold := -0.7
 const vision_distance = 20.
 
 const ray_direction_amount = 20
 var ray_directions: Array[Vector2]
 var ray: RayCast2D
-var colision_avoid_strength = 20.
+var colision_avoid_strength = 50.
 
 var velocity: Vector2
 var acceleration: Vector2
