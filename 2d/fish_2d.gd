@@ -5,7 +5,7 @@ var flockmates: Array[Node2D]
 
 var avoidance_strength = 1.0
 var alignment_strength = 1.0
-var cohesion_strength = 1.0
+var cohesion_strength = 5.0
 
 const max_speed := 10.0
 const min_speed := 3.0
@@ -13,7 +13,7 @@ const max_steer_force := max_speed / 3.
 const forward_acceleration: float = max_speed / 2.
 
 const avoidance_radius := 3.
-const vision_cone_threshhold := -0.7
+const vision_cone_threshhold := -0.5
 const vision_distance = 20.
 
 const ray_direction_amount = 20
@@ -45,23 +45,27 @@ func _process(delta: float) -> void:
 			flockmates.append(fish)
 	
 	if flockmates.size() > 0:
-		acceleration += calculate_avoidance_force()
-		acceleration += calculate_alignment_force()
-		acceleration += calculate_cohesion_force()
+		if GlobalVars2d.is_avoidance_enabled:
+			acceleration += calculate_avoidance_force()
+		if GlobalVars2d.is_alignment_enabled:
+			acceleration += calculate_alignment_force()
+		if GlobalVars2d.is_cohesion_enabled:
+			acceleration += calculate_cohesion_force()
 	
 	if is_heading_for_colision() and GlobalVars2d.is_colision_avoidance_enabled:
 		acceleration += calculate_colision_avoid_force()
 	
-	velocity += acceleration
-	var speed: float = velocity.length()
-	var dir: Vector2 = velocity / speed
-	if speed < (max_speed + min_speed) / 2.:
-		speed += forward_acceleration * delta
-	speed = clamp(speed, min_speed, max_speed)
-	velocity = dir * speed
+	if GlobalVars2d.is_moving_enabled:
+		velocity += acceleration
+		var speed: float = velocity.length()
+		var dir: Vector2 = velocity / speed
+		if speed < (max_speed + min_speed) / 2.:
+			speed += forward_acceleration * delta
+		speed = clamp(speed, min_speed, max_speed)
+		velocity = dir * speed
 	
-	rotation = atan2(velocity.y, velocity.x)
-	move(velocity, delta)
+		rotation = atan2(velocity.y, velocity.x)
+		move(velocity, delta)
 
 
 

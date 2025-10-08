@@ -14,7 +14,7 @@ func _on_top_area_entered(area: Area2D) -> void:
 	if GlobalVars2d.is_colision_avoidance_enabled:
 		return
 		fish.position.y += 20
-	else:
+	elif GlobalVars2d.is_moving_enabled:
 		fish.position.y += 1440
 
 
@@ -23,7 +23,7 @@ func _on_bottom_area_entered(area: Area2D) -> void:
 	if GlobalVars2d.is_colision_avoidance_enabled:
 		return
 		fish.position.y -= 20
-	else:
+	elif GlobalVars2d.is_moving_enabled:
 		fish.position.y -= 1440
 
 
@@ -32,7 +32,7 @@ func _on_left_area_entered(area: Area2D) -> void:
 	if GlobalVars2d.is_colision_avoidance_enabled:
 		return
 		fish.position.x += 20
-	else:
+	elif GlobalVars2d.is_moving_enabled:
 		fish.position.x += 2560
 
 
@@ -41,5 +41,5 @@ func _on_right_area_entered(area: Area2D) -> void:
 	if GlobalVars2d.is_colision_avoidance_enabled:
 		return
 		fish.position.x -= 20
-	else:
+	elif GlobalVars2d.is_moving_enabled:
 		fish.position.x -= 2560

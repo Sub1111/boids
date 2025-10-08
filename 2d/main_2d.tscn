@@ -12,7 +12,7 @@ size = Vector2(2724, 82)
 size = Vector2(1638, 78)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_16spo"]
-size = Vector2(80, 944)
+size = Vector2(80, 895)
 
 [sub_resource type="BoxMesh" id="BoxMesh_wqhqh"]
 size = Vector3(10, 100, 1)
@@ -65,15 +65,16 @@ collision_layer = 3
 shape = SubResource("RectangleShape2D_2qbro")
 
 [node name="centre" type="Area2D" parent="borders"]
+visible = false
 position = Vector2(966, 536)
-scale = Vector2(1, 1.36)
-collision_layer = 3
+scale = Vector2(1, 1.2)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="borders/centre"]
 shape = SubResource("RectangleShape2D_16spo")
 
 [node name="MeshInstance2D" type="MeshInstance2D" parent="borders/centre"]
-scale = Vector2(7.90469, 9.45102)
+position = Vector2(0, -3.8147e-05)
+scale = Vector2(7.90469, 8.95)
 mesh = SubResource("BoxMesh_wqhqh")
 
 [connection signal="area_entered" from="borders/top" to="borders" method="_on_top_area_entered"]

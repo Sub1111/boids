@@ -25,6 +25,7 @@ func _input(event: InputEvent) -> void:
 	if event.is_action_released("light_fisrst_one"):
 		var mesh: MeshInstance2D = first_fish.get_child(1)
 		mesh.modulate = "#ff2c4e"
+		first_fish.rotation = 0
 	if event.is_action_released("center_area_switch"):
 		if centre.collision_layer == 3:
 			centre.collision_layer = 0

@@ -32,6 +32,6 @@ func _process(delta: float) -> void:
 		b /= flockmates.size()
 	
 	if GlobalVars2d.is_color_changing_enabled:
-		modulate = Color(r + randf_range(-0.01,0.01), g + randf_range(-0.1,0.1), b + randf_range(-0.1,0.1), 1.)
+		modulate = Color(r + randf_range(-0.1,0.1), g + randf_range(-0.1,0.1), b + randf_range(-0.1,0.1), 1.)
 	else:
 		modulate = Color(r, g, b, 1.)
